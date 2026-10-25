@@ -90,17 +90,16 @@ def render_sub(t):
     p = params(t)
     sx = p["size"]
     sy = sx * p["aspect"]
-    rc = p["corner"] * min(sx, sy)
-    # SDF de rectángulo redondeado (círculo cuando corner = 1)
-    qx = np.abs(DX) - sx + rc
-    qy = np.abs(DY) - sy + rc
-    d = (np.hypot(np.maximum(qx, 0), np.maximum(qy, 0))
-         + np.minimum(np.maximum(qx, qy), 0) - rc)
+    # Superelipse suave (n=2 círculo … n≈5 cuadrado redondeado): sin aristas internas,
+    # así la onda no rasga los trazos en las diagonales.
+    n = 2.0 + 3.0 * (1.0 - p["corner"]) / 0.67
+    rn = (np.abs(DX / sx) ** n + np.abs(DY / sy) ** n) ** (1.0 / n)
+    d = (rn - 1.0) * sx
     d = d + p["wobble"] * organic(THETA, t)
     gy, gx = np.gradient(d)
     gn = np.hypot(gx, gy) + 1e-6
     nx, ny = gx / gn, gy / gn                       # normal hacia fuera
-    R = min(sx, sy)
+    R = sx
     rho = np.clip(1.0 + d / R, 0.0, 1.0)            # 0 centro, 1 contorno
 
     # --- Campo de desplazamiento (lupas de agua) -------------------------
@@ -109,9 +108,10 @@ def render_sub(t):
     rim = np.exp(-((d - d0) / w) ** 2)
     disp = -p["rim_k"] * (d - d0) * rim             # aumento local 1/(1-k) en el borde
     dw = -(1.0 - p["wave_pos"]) * R
-    ww = 0.16 * R + 30
+    ww = 0.22 * R + 30
     wave = np.exp(-((d - dw) / ww) ** 2)
     disp = disp - p["wave_k"] * 0.85 * (d - dw) * wave
+    disp = disp * smoothstep(0.02, 0.22, rn)        # la normal no existe en el centro exacto
 
     # sectores donde la curvatura/refracción es mayor → aberración cromática
     ph = 0.9 * t + 1.6 * float(smoothstep(0.55, 1.25, t))
@@ -151,23 +151,27 @@ def render_sub(t):
     glow = np.zeros_like(rgb)
     if light > 0.002 or p["body"] > 0.002:
         cool = lobes(THETA, [(-0.75 + ph, 0.5, 1.0), (1.35 + ph * 0.8, 0.32, 0.75), (2.9 - ph * 0.4, 0.42, 0.9)])
-        warm = lobes(THETA, [(2.45 + ph * 0.7, 0.28, 1.0), (-1.9 + ph, 0.22, 0.7)])
+        warm = lobes(THETA, [(2.45 + ph * 0.7, 0.22, 0.8), (-1.9 + ph, 0.18, 0.6)])
         if side > 0:
-            sl = lobes(THETA, [(0.0, 0.32, 1.0), (np.pi, 0.32, 1.0)])
+            sl = lobes(THETA, [(0.0, 0.38, 1.0), (np.pi, 0.38, 1.0), (0.35, 0.15, 0.7), (np.pi + 0.3, 0.15, 0.7)])
             cool = (1 - side) * cool + side * sl
             warm = (1 - side) * warm + side * 0.6 * sl
-        chunk = 0.6 + 0.4 * np.sin(7 * THETA + 2.5 * t) * np.sin(3 * THETA - 1.3 * t + 0.5)
+        chunk = np.clip(0.55 + 0.65 * np.sin(7 * THETA + 2.5 * t) * np.sin(3 * THETA - 1.3 * t + 0.5), 0.15, 1.2)
         cs = 2.0 + 5.0 * p["ca"]
-        tint_c = (0.62, 0.84, 1.0)
+        tint_c = (0.55, 0.80, 1.0)
         tint_w = (1.0, 0.55, 0.30)
         for ch, ec in enumerate((1.0, 0.0, -1.0)):
             dd = d + ec * cs * (cool + warm)          # canales desplazados solo donde hay reflejo
-            band = np.exp(-((dd + 0.22 * w) / (0.2 * w + 1.5)) ** 2)
+            band = np.exp(-((dd + 0.25 * w) / (0.28 * w + 1.5)) ** 2)
             inner = np.exp(-((dd + 0.95 * w) / (0.12 * w + 1.0)) ** 2)
+            ghost = np.exp(-((dd - 0.6 * w) / (0.07 * w + 1.0)) ** 2)   # segundo contorno exterior tenue
             body = np.exp(-((dd + 0.35 * w) / (0.55 * w)) ** 2)
-            glow[..., ch] = (light * chunk * (band * (tint_c[ch] * cool * 1.15 + tint_w[ch] * warm)
-                                              + 0.35 * inner * cool * tint_c[ch])
-                             + p["body"] * 0.10 * body * (0.75, 0.85, 1.0)[ch])
+            fill = np.exp(-((dd + 0.5 * w) / (1.1 * w)) ** 2)           # espesor azulado del cristal
+            glow[..., ch] = (light * chunk * (band * (tint_c[ch] * cool * 2.6 + tint_w[ch] * warm * 1.2)
+                                              + 0.45 * inner * cool * tint_c[ch]
+                                              + 0.22 * ghost * cool * tint_c[ch])
+                             + p["body"] * (0.14 * body * (0.75, 0.85, 1.0)[ch]
+                                            + 0.10 * fill * (0.30, 0.50, 1.0)[ch]))
     return rgb, glow
 
 

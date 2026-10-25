@@ -30,6 +30,16 @@ def main(frames_dir=ROOT / "contact/frames", out=ROOT / "contact/hoja_de_contact
     sheet.save(out)
     story = Image.open(ROOT / "assets/source/storyboard_aprobado.png").convert("RGB")
     story = story.resize((sheet.width, int(story.height * sheet.width / story.width)), Image.LANCZOS)
+    # Comparación con el mismo encuadre que las viñetas del storyboard (recorte central 1350×1080)
+    crop = Image.new("RGB", sheet.size, (6, 8, 12))
+    crop.paste(sheet.crop((0, 0, sheet.width, 70)), (0, 0))
+    for i, (fi, _) in enumerate(STORY):
+        x = 8 + (i % cols) * (cw + 8)
+        y = 70 + (i // cols) * (ch + head + 8)
+        crop.paste(sheet.crop((x, y, x + cw, y + head)), (x, y))
+        im = Image.open(Path(frames_dir) / f"f{fi:03d}.png").convert("RGB").crop((285, 0, 1635, 1080))
+        crop.paste(im.resize((ch * 1350 // 1080, ch), Image.LANCZOS), (x + (cw - ch * 1350 // 1080) // 2, y + head))
+    sheet = crop
     comp = Image.new("RGB", (sheet.width, story.height + sheet.height), (0, 0, 0))
     comp.paste(story, (0, 0))
     comp.paste(sheet, (0, story.height))

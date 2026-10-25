@@ -3,11 +3,16 @@
 Cada pista es una lista de (tiempo_s, valor). Se interpola con PCHIP (cúbica
 monótona): aceleración y frenado suaves, sin velocidad lineal ni rebotes.
 """
+import os
+
 import numpy as np
 
 FPS = 30
 DURATION = 4.0
-W, H = 1920, 1080
+# Formato: "h" = 1920×1080 (aprobado como referencia) · "v" = 1080×1920
+FORMAT = os.environ.get("BUMPER_FORMAT", "h")
+W, H = (1920, 1080) if FORMAT == "h" else (1080, 1920)
+SUFFIX = "" if FORMAT == "h" else "_vertical"
 
 # Tiempos aprobados en el storyboard
 STORY = [
@@ -71,6 +76,16 @@ TRACKS = {
     # 1 = el contenido solo se ve dentro de la lente; 0 = visible en todo el cuadro
     "clip": [(0.0, 1.0), (3.000, 1.0), (3.300, 0.0), (4.0, 0.0)],
 }
+
+# Ajustes del vertical: mismo lado corto que la horizontal, con lente y logos al 92 %
+# para dejar aire lateral, y lente más alargada en la fase final para que la
+# refracción siga siendo lateral y el contorno superior/inferior salga del cuadro.
+V_SCALE = 0.92
+if FORMAT == "v":
+    for key in ("size", "mb_w", "may_w"):
+        TRACKS[key] = [(a, b * V_SCALE) for a, b in TRACKS[key]]
+    TRACKS["aspect"] = [(0.0, 1.0), (1.767, 1.0), (2.000, 1.08), (2.267, 1.18), (2.767, 2.3),
+                        (3.333, 2.4), (4.0, 2.4)]
 
 
 def pchip(xs, ys, x):

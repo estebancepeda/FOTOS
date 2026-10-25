@@ -8,6 +8,7 @@ suman encima, pero la deformación de trazos viene del desplazamiento.
 Uso:
   python3 render.py frames            # 120 cuadros PNG en renders/frames
   python3 render.py stills 5 9 18     # cuadros sueltos en contact/frames
+  BUMPER_FORMAT=v python3 render.py … # versión vertical 1080×1920 (carpetas *_vertical)
 """
 import sys
 from functools import lru_cache
@@ -17,7 +18,7 @@ from pathlib import Path
 import numpy as np
 from PIL import Image, ImageFilter
 
-from timeline import FPS, DURATION, W, H, params, smoothstep
+from timeline import FPS, DURATION, SUFFIX, W, H, params, smoothstep
 
 ROOT = Path(__file__).resolve().parent.parent
 LOGOS = ROOT / "assets/logos"
@@ -207,10 +208,10 @@ def _job(args):
 def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "frames"
     if mode == "frames":
-        outdir = ROOT / "renders/frames"
+        outdir = ROOT / f"renders/frames{SUFFIX}"
         frames = range(int(round(DURATION * FPS)))
     else:
-        outdir = ROOT / "contact/frames"
+        outdir = ROOT / f"contact/frames{SUFFIX}"
         frames = [int(x) for x in sys.argv[2:]]
     outdir.mkdir(parents=True, exist_ok=True)
     with Pool(4) as pool:

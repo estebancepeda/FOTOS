@@ -1,15 +1,16 @@
 # Bumper v3 · Mercedes-Benz 140 Years of Innovation → Auto Mayella
 
-Prueba horizontal 1920 × 1080, 30 fps, 4.0 s (120 cuadros), con sonido.
+Horizontal 1920 × 1080 y vertical 1080 × 1920, 30 fps, 4.0 s (120 cuadros), con sonido.
 Referencia aprobada: `assets/source/storyboard_aprobado.png`.
 
 ## Entregables
 
 | Archivo | Contenido |
 |---|---|
-| `renders/bumper_mercedes_mayella_1920x1080.mp4` | Video final H.264 + AAC |
-| `contact/hoja_de_contacto.png` | Los 12 tiempos del storyboard, cuadro completo |
-| `contact/comparacion_storyboard.png` | Storyboard arriba, render abajo con el mismo encuadre (recorte central 1350 × 1080) |
+| `renders/bumper_mercedes_mayella_1920x1080.mp4` | Video horizontal H.264 + AAC |
+| `renders/bumper_mercedes_mayella_1080x1920.mp4` | Video vertical H.264 + AAC |
+| `contact/hoja_de_contacto.png` · `contact/hoja_de_contacto_vertical.png` | Los 12 tiempos del storyboard, cuadro completo |
+| `contact/comparacion_storyboard.png` · `contact/comparacion_storyboard_vertical.png` | Storyboard arriba, render abajo con el mismo encuadre (recorte central 1350 × 1080) |
 | `renders/bumper_audio.wav` | Mezcla de audio 48 kHz estéreo |
 
 ## Proyecto editable
@@ -25,8 +26,18 @@ src/audio.py           diseño sonoro sintetizado
 src/build.sh           pipeline completo → MP4
 ```
 
-Reconstruir todo: `bash src/build.sh` (Python 3 + numpy + Pillow + ffmpeg; ~5 min en 4 núcleos).
-Solo la hoja de contacto: `cd src && python3 render.py stills 5 9 18 30 38 44 46 53 60 68 83 100 && python3 contact_sheet.py`.
+Reconstruir todo: `bash src/build.sh` (horizontal) o `bash src/build.sh v` (vertical)
+(Python 3 + numpy + Pillow + ffmpeg; ~10 min en 4 núcleos).
+Solo la hoja de contacto: `cd src && python3 render.py stills 5 9 18 30 38 44 46 53 60 68 83 100 && python3 contact_sheet.py`
+(anteponer `BUMPER_FORMAT=v` a cada comando para la vertical).
+
+### Vertical 1080 × 1920
+
+Misma secuencia, curvas, efecto y audio que la horizontal. Diferencias (en `timeline.py`):
+- Lente y logos al 92 % (`V_SCALE`) para dejar aire lateral en un cuadro de 1080 de ancho.
+- En la fase final la lente se mantiene redonda hasta 2.267 s y luego se alarga
+  (`aspect` hasta 2.3) para que el contorno superior/inferior salga del cuadro y la
+  refracción de 2.767 s quede solo en los lados, como en el storyboard.
 
 ## Cómo funciona el efecto
 

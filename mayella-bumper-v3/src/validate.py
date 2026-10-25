@@ -10,10 +10,10 @@ import numpy as np
 from PIL import Image
 
 from render import CX, CY, H, W, logo_canvas, MARGIN
-from timeline import params
+from timeline import SUFFIX, params
 
 ROOT = Path(__file__).resolve().parent.parent
-FR = ROOT / "renders/frames"
+FR = ROOT / f"renders/frames{SUFFIX}"
 
 
 def load(i):
@@ -27,12 +27,16 @@ def main():
     diffs = []
     prev = load(0)
     border = []
+    logo_edge = []
     for i in range(n):
         cur = load(i)
         if i:
             diffs.append(np.abs(cur - prev).mean())
         edge = np.concatenate([cur[:4].ravel(), cur[-4:].ravel(), cur[:, :4].ravel(), cur[:, -4:].ravel()])
         border.append(edge.max())
+        strips = [cur[:4], cur[-4:], cur[:, :4], cur[:, -4:]]
+        # blanco neutro (logo) tocando el borde, distinto del reflejo azulado del cristal
+        logo_edge.append(max(((s.min(-1) > 0.5) & (s.max(-1) - s.min(-1) < 0.08)).sum() for s in strips))
         prev = cur
     diffs = np.array(diffs)
     med = np.median(diffs[diffs > 1e-5]) if (diffs > 1e-5).any() else 0
@@ -42,6 +46,7 @@ def main():
               if diffs[i] > 3 * max(diffs[i - 1], diffs[i + 1], 1e-4) and diffs[i] > 4 * med]
     print("picos aislados (posibles saltos):", spikes or "ninguno")
     print("máximo en bordes del cuadro:", f"{max(border):.3f}", "en f%03d" % int(np.argmax(border)))
+    print("píxeles de logo blanco tocando el borde (máx. por cuadro):", max(logo_edge))
 
     p = params(4.0)
     ref = logo_canvas("mayella", p["may_w"])[MARGIN:MARGIN + H, MARGIN:MARGIN + W]

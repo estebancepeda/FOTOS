@@ -1,4 +1,6 @@
 renders/frames/
+renders/frames_vertical/
 contact/frames/
+contact/frames_vertical/
 __pycache__/
-renders/render.log
+renders/*.log

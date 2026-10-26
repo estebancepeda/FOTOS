@@ -1,0 +1,4 @@
+node_modules/
+renders/frames/
+preview/frames/
+*.log

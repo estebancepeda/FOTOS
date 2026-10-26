@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Reel Mercedes-Benz 2027 · Auto Mayella</title>
+<style>
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; width: 540px; height: 960px; }
+  /* fuerza la carga de las fuentes antes del primer cuadro */
+  .warm { font-family: "Inter Display", "Inter"; position: absolute; opacity: 0; }
+</style>
+</head>
+<body>
+<span class="warm" style="font-weight:200">a</span><span class="warm" style="font-weight:300">a</span>
+<span class="warm" style="font-weight:500">a</span><span class="warm" style="font-weight:600">a</span>
+<canvas id="out"></canvas>
+<script type="module">
+  import { Renderer, FPS } from './engine.js';
+  const params = new URLSearchParams(location.search);
+  const storyName = params.get('story') || 'story';
+  const story = await import(`./${storyName}.js`);
+  await story.load();
+  await document.fonts.ready;
+  const r = new Renderer(document.getElementById('out'));
+  const sub = parseInt(params.get('sub') || '3', 10);
+  window.DURATION = story.DURATION;
+  window.renderFrame = (f) => { r.render(f / FPS, story, sub); };
+  // Devuelve el cuadro como RGBA crudo (de abajo hacia arriba) en base64
+  window.grab = async (f) => {
+    r.render(f / FPS, story, sub);
+    const gl = r.gl, px = new Uint8Array(1080 * 1920 * 4);
+    gl.readPixels(0, 0, 1080, 1920, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    const blob = new Blob([px]);
+    const url = await new Promise((ok) => { const fr = new FileReader(); fr.onload = () => ok(fr.result); fr.readAsDataURL(blob); });
+    return url.slice(url.indexOf(',') + 1);
+  };
+  window.ready = true;
+  if (params.get('t')) window.renderFrame(Math.round(parseFloat(params.get('t')) * FPS));
+</script>
+</body>
+</html>

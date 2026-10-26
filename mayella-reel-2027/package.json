@@ -1,0 +1,8 @@
+{
+  "name": "mayella-reel-2027",
+  "private": true,
+  "description": "Motion graphics vertical para reel de Instagram: lanzamiento Mercedes-Benz 2027 · Auto Mayella",
+  "devDependencies": {
+    "lucide-static": "1.61.0"
+  }
+}

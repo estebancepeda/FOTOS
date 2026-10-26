@@ -4,6 +4,7 @@
 //   node render.mjs stills [story] t1 t2 …          → preview/<story>_t.png
 //   node render.mjs range  [story] from to [sub]    → video parcial sin audio (pruebas)
 //   node render.mjs part   story f0 f1 salida.mp4 sub → bloque de cuadros [f0, f1) sin audio (render en paralelo)
+//   node render.mjs events [story]                  → transcript/<story>_events.json (tiempos para el sonido)
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -58,7 +59,13 @@ const [mode = 'stills', story = 'story', ...rest] = process.argv.slice(2);
 fs.mkdirSync(path.join(ROOT, 'preview'), { recursive: true });
 fs.mkdirSync(path.join(ROOT, 'renders'), { recursive: true });
 
-if (mode === 'stills') {
+if (mode === 'events') {
+  const { srv, browser, page } = await open(story, 1);
+  const out = path.join(ROOT, `transcript/${story}_events.json`);
+  fs.writeFileSync(out, await page.evaluate('window.exportEvents()'));
+  await browser.close(); srv.close();
+  console.log('ok', out);
+} else if (mode === 'stills') {
   const { srv, browser, page } = await open(story, 3);
   for (const t of rest.map(Number)) {
     const raw = await grabTo(page, Math.round(t * 30));

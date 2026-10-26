@@ -230,3 +230,4 @@ export function draw(ctx, t) {
 }
 export const lens = (t) => lensAt(LENS, t);
 export const scenes = () => SCENES;
+export const lensEvents = () => LENS;

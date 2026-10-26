@@ -11,6 +11,8 @@ después dentro de otra edición.
 | `renders/reel_mercedes_2027_mayella_1080x1920.mp4` | Video final H.264 (CRF 12) + audio original AAC 320 kbps |
 | `preview/hoja_de_contacto_reel.png` | Cuadros clave del video final |
 | `transcript/guion_sincronizado.md` | Frases con su tiempo en el audio |
+| `renders/reel_mercedes_2027_sfx.wav` | **Solo efectos de sonido** (sin voz ni música), 48 kHz / 24 bit, 71 s, empieza en el cuadro 0 del video |
+| `transcript/sfx_cues.md` | Lista de efectos con su tiempo |
 
 ## Composición
 
@@ -32,12 +34,15 @@ src/render.mjs      render cuadro a cuadro en Chromium sin cabeza → ffmpeg
 src/build.sh        render completo en bloques paralelos + audio → MP4
 src/align_dtw.py    alineación del guion con el audio (espeak-ng + MFCC + DTW)
 src/contact.py      hojas de contacto
+src/sfx.py          efectos de sonido sintetizados a partir de los tiempos reales de la animación
 transcript/words.json   tiempo de cada palabra (lo usa story.js)
 ```
 
 - Cambiar un texto o un ícono: editar `src/story.js` y volver a renderizar.
 - Vista previa de cuadros sueltos: `cd src && node render.mjs stills story 12.5 30.2`
 - Render completo: `cd src && bash build.sh 4 3` (4 procesos, 3 submuestras de motion blur; ~20–30 min).
+- Rehacer los efectos de sonido: `cd src && node render.mjs events story && python3 sfx.py`
+  (si cambias `story.js`, los efectos se resincronizan solos).
 - Rehacer la alineación: `pip install espeakng-loader numpy` y `python3 src/align_dtw.py`.
 
 Requisitos: Node 22 + Playwright con Chromium (ya instalados en el entorno), ffmpeg, Python 3 + numpy.

@@ -34,6 +34,8 @@
     const url = await new Promise((ok) => { const fr = new FileReader(); fr.onload = () => ok(fr.result); fr.readAsDataURL(blob); });
     return url.slice(url.indexOf(',') + 1);
   };
+  // lista de escenas y lentes con sus tiempos reales (para el diseño sonoro)
+  window.exportEvents = () => JSON.stringify({ duration: story.DURATION, scenes: story.scenes(), lens: story.lensEvents() });
   window.ready = true;
   if (params.get('t')) window.renderFrame(Math.round(parseFloat(params.get('t')) * FPS));
 </script>

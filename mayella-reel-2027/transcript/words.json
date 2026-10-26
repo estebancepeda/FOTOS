@@ -1,0 +1,1668 @@
+[
+{
+"phrase": 0,
+"i": 0,
+"spoken": "Marcel",
+"start": 0.0,
+"end": 0.4
+},
+{
+"phrase": 0,
+"i": 1,
+"spoken": "Hernández,",
+"start": 0.4,
+"end": 0.82
+},
+{
+"phrase": 0,
+"i": 2,
+"spoken": "experto",
+"start": 0.82,
+"end": 1.22
+},
+{
+"phrase": 0,
+"i": 3,
+"spoken": "de",
+"start": 1.22,
+"end": 1.31
+},
+{
+"phrase": 0,
+"i": 4,
+"spoken": "producto",
+"start": 1.31,
+"end": 1.75
+},
+{
+"phrase": 0,
+"i": 5,
+"spoken": "de",
+"start": 1.75,
+"end": 1.89
+},
+{
+"phrase": 0,
+"i": 6,
+"spoken": "Mercedes",
+"start": 1.89,
+"end": 2.28
+},
+{
+"phrase": 0,
+"i": 7,
+"spoken": "Benz",
+"start": 2.28,
+"end": 2.6
+},
+{
+"phrase": 0,
+"i": 8,
+"spoken": "Autosama,",
+"start": 2.6,
+"end": 3.3
+},
+{
+"phrase": 1,
+"i": 0,
+"spoken": "y",
+"start": 3.3,
+"end": 3.41
+},
+{
+"phrase": 1,
+"i": 1,
+"spoken": "para",
+"start": 3.41,
+"end": 3.6
+},
+{
+"phrase": 1,
+"i": 2,
+"spoken": "mí",
+"start": 3.6,
+"end": 3.7
+},
+{
+"phrase": 1,
+"i": 3,
+"spoken": "es",
+"start": 3.7,
+"end": 3.87
+},
+{
+"phrase": 1,
+"i": 4,
+"spoken": "un",
+"start": 3.87,
+"end": 4.03
+},
+{
+"phrase": 1,
+"i": 5,
+"spoken": "placer",
+"start": 4.03,
+"end": 4.33
+},
+{
+"phrase": 1,
+"i": 6,
+"spoken": "poder",
+"start": 4.33,
+"end": 4.53
+},
+{
+"phrase": 1,
+"i": 7,
+"spoken": "presentarles",
+"start": 4.53,
+"end": 5.19
+},
+{
+"phrase": 1,
+"i": 8,
+"spoken": "aquí",
+"start": 5.19,
+"end": 5.47
+},
+{
+"phrase": 1,
+"i": 9,
+"spoken": "en",
+"start": 5.47,
+"end": 5.54
+},
+{
+"phrase": 1,
+"i": 10,
+"spoken": "Auto",
+"start": 5.54,
+"end": 5.78
+},
+{
+"phrase": 1,
+"i": 11,
+"spoken": "Mayella",
+"start": 5.78,
+"end": 6.32
+},
+{
+"phrase": 2,
+"i": 0,
+"spoken": "la",
+"start": 6.32,
+"end": 6.41
+},
+{
+"phrase": 2,
+"i": 1,
+"spoken": "nueva",
+"start": 6.41,
+"end": 6.67
+},
+{
+"phrase": 2,
+"i": 2,
+"spoken": "ge",
+"start": 6.67,
+"end": 6.9
+},
+{
+"phrase": 2,
+"i": 3,
+"spoken": "ele",
+"start": 6.9,
+"end": 7.1
+},
+{
+"phrase": 2,
+"i": 4,
+"spoken": "e",
+"start": 7.1,
+"end": 7.18
+},
+{
+"phrase": 2,
+"i": 5,
+"spoken": "cuatro",
+"start": 7.18,
+"end": 7.51
+},
+{
+"phrase": 2,
+"i": 6,
+"spoken": "cincuenta",
+"start": 7.51,
+"end": 8.01
+},
+{
+"phrase": 2,
+"i": 7,
+"spoken": "a",
+"start": 8.01,
+"end": 8.07
+},
+{
+"phrase": 2,
+"i": 8,
+"spoken": "eme",
+"start": 8.07,
+"end": 8.21
+},
+{
+"phrase": 2,
+"i": 9,
+"spoken": "ge",
+"start": 8.21,
+"end": 8.33
+},
+{
+"phrase": 2,
+"i": 10,
+"spoken": "lain,",
+"start": 8.33,
+"end": 8.83
+},
+{
+"phrase": 3,
+"i": 0,
+"spoken": "la",
+"start": 8.83,
+"end": 8.88
+},
+{
+"phrase": 3,
+"i": 1,
+"spoken": "ge",
+"start": 8.88,
+"end": 8.97
+},
+{
+"phrase": 3,
+"i": 2,
+"spoken": "ele",
+"start": 8.97,
+"end": 9.05
+},
+{
+"phrase": 3,
+"i": 3,
+"spoken": "ese",
+"start": 9.05,
+"end": 9.17
+},
+{
+"phrase": 3,
+"i": 4,
+"spoken": "cuatro",
+"start": 9.17,
+"end": 9.39
+},
+{
+"phrase": 3,
+"i": 5,
+"spoken": "cincuenta",
+"start": 9.39,
+"end": 9.73
+},
+{
+"phrase": 3,
+"i": 6,
+"spoken": "a",
+"start": 9.73,
+"end": 9.76
+},
+{
+"phrase": 3,
+"i": 7,
+"spoken": "eme",
+"start": 9.76,
+"end": 9.87
+},
+{
+"phrase": 3,
+"i": 8,
+"spoken": "ge",
+"start": 9.87,
+"end": 9.96
+},
+{
+"phrase": 3,
+"i": 9,
+"spoken": "lain",
+"start": 9.96,
+"end": 10.38
+},
+{
+"phrase": 4,
+"i": 0,
+"spoken": "y",
+"start": 10.38,
+"end": 10.44
+},
+{
+"phrase": 4,
+"i": 1,
+"spoken": "la",
+"start": 10.44,
+"end": 10.52
+},
+{
+"phrase": 4,
+"i": 2,
+"spoken": "ge",
+"start": 10.52,
+"end": 10.65
+},
+{
+"phrase": 4,
+"i": 3,
+"spoken": "ele",
+"start": 10.65,
+"end": 10.8
+},
+{
+"phrase": 4,
+"i": 4,
+"spoken": "e",
+"start": 10.8,
+"end": 10.86
+},
+{
+"phrase": 4,
+"i": 5,
+"spoken": "cuatro",
+"start": 10.86,
+"end": 11.08
+},
+{
+"phrase": 4,
+"i": 6,
+"spoken": "cincuenta",
+"start": 11.08,
+"end": 11.42
+},
+{
+"phrase": 4,
+"i": 7,
+"spoken": "a",
+"start": 11.42,
+"end": 11.45
+},
+{
+"phrase": 4,
+"i": 8,
+"spoken": "eme",
+"start": 11.45,
+"end": 11.56
+},
+{
+"phrase": 4,
+"i": 9,
+"spoken": "ge",
+"start": 11.56,
+"end": 11.68
+},
+{
+"phrase": 4,
+"i": 10,
+"spoken": "lain",
+"start": 11.68,
+"end": 11.91
+},
+{
+"phrase": 4,
+"i": 11,
+"spoken": "cupé.",
+"start": 11.91,
+"end": 12.41
+},
+{
+"phrase": 5,
+"i": 0,
+"spoken": "Estos",
+"start": 12.41,
+"end": 12.65
+},
+{
+"phrase": 5,
+"i": 1,
+"spoken": "modelos",
+"start": 12.65,
+"end": 12.98
+},
+{
+"phrase": 5,
+"i": 2,
+"spoken": "cuentan",
+"start": 12.98,
+"end": 13.38
+},
+{
+"phrase": 5,
+"i": 3,
+"spoken": "con",
+"start": 13.38,
+"end": 13.52
+},
+{
+"phrase": 5,
+"i": 4,
+"spoken": "una",
+"start": 13.52,
+"end": 13.76
+},
+{
+"phrase": 5,
+"i": 5,
+"spoken": "nueva",
+"start": 13.76,
+"end": 14.01
+},
+{
+"phrase": 5,
+"i": 6,
+"spoken": "iluminación",
+"start": 14.01,
+"end": 14.55
+},
+{
+"phrase": 5,
+"i": 7,
+"spoken": "delantera",
+"start": 14.55,
+"end": 14.94
+},
+{
+"phrase": 5,
+"i": 8,
+"spoken": "con",
+"start": 14.94,
+"end": 15.06
+},
+{
+"phrase": 5,
+"i": 9,
+"spoken": "un",
+"start": 15.06,
+"end": 15.23
+},
+{
+"phrase": 5,
+"i": 10,
+"spoken": "patrón",
+"start": 15.23,
+"end": 15.47
+},
+{
+"phrase": 5,
+"i": 11,
+"spoken": "de",
+"start": 15.47,
+"end": 15.56
+},
+{
+"phrase": 5,
+"i": 12,
+"spoken": "estrellas,",
+"start": 15.56,
+"end": 16.37
+},
+{
+"phrase": 6,
+"i": 0,
+"spoken": "trasera",
+"start": 16.37,
+"end": 16.61
+},
+{
+"phrase": 6,
+"i": 1,
+"spoken": "también,",
+"start": 16.61,
+"end": 17.15
+},
+{
+"phrase": 6,
+"i": 2,
+"spoken": "calandra",
+"start": 17.15,
+"end": 17.58
+},
+{
+"phrase": 6,
+"i": 3,
+"spoken": "iluminada,",
+"start": 17.58,
+"end": 18.29
+},
+{
+"phrase": 6,
+"i": 4,
+"spoken": "y",
+"start": 18.29,
+"end": 18.41
+},
+{
+"phrase": 6,
+"i": 5,
+"spoken": "no",
+"start": 18.41,
+"end": 18.6
+},
+{
+"phrase": 6,
+"i": 6,
+"spoken": "todo",
+"start": 18.6,
+"end": 18.85
+},
+{
+"phrase": 6,
+"i": 7,
+"spoken": "es",
+"start": 18.85,
+"end": 19.03
+},
+{
+"phrase": 6,
+"i": 8,
+"spoken": "diseño.",
+"start": 19.03,
+"end": 19.7
+},
+{
+"phrase": 7,
+"i": 0,
+"spoken": "Ya",
+"start": 19.7,
+"end": 19.84
+},
+{
+"phrase": 7,
+"i": 1,
+"spoken": "pasando",
+"start": 19.84,
+"end": 20.19
+},
+{
+"phrase": 7,
+"i": 2,
+"spoken": "al",
+"start": 20.19,
+"end": 20.28
+},
+{
+"phrase": 7,
+"i": 3,
+"spoken": "interior,",
+"start": 20.28,
+"end": 20.72
+},
+{
+"phrase": 7,
+"i": 4,
+"spoken": "tenemos",
+"start": 20.72,
+"end": 21.07
+},
+{
+"phrase": 7,
+"i": 5,
+"spoken": "nuevos",
+"start": 21.07,
+"end": 21.46
+},
+{
+"phrase": 7,
+"i": 6,
+"spoken": "materiales",
+"start": 21.46,
+"end": 22.08
+},
+{
+"phrase": 7,
+"i": 7,
+"spoken": "con",
+"start": 22.08,
+"end": 22.23
+},
+{
+"phrase": 7,
+"i": 8,
+"spoken": "cuero",
+"start": 22.23,
+"end": 22.82
+},
+{
+"phrase": 8,
+"i": 0,
+"spoken": "y",
+"start": 22.82,
+"end": 22.93
+},
+{
+"phrase": 8,
+"i": 1,
+"spoken": "también",
+"start": 22.93,
+"end": 23.4
+},
+{
+"phrase": 8,
+"i": 2,
+"spoken": "con",
+"start": 23.4,
+"end": 23.54
+},
+{
+"phrase": 8,
+"i": 3,
+"spoken": "nuevos",
+"start": 23.54,
+"end": 23.82
+},
+{
+"phrase": 8,
+"i": 4,
+"spoken": "colores",
+"start": 23.82,
+"end": 24.24
+},
+{
+"phrase": 8,
+"i": 5,
+"spoken": "como",
+"start": 24.24,
+"end": 24.51
+},
+{
+"phrase": 8,
+"i": 6,
+"spoken": "el",
+"start": 24.51,
+"end": 24.6
+},
+{
+"phrase": 8,
+"i": 7,
+"spoken": "eso",
+"start": 24.6,
+"end": 24.89
+},
+{
+"phrase": 8,
+"i": 8,
+"spoken": "eso",
+"start": 24.89,
+"end": 25.08
+},
+{
+"phrase": 8,
+"i": 9,
+"spoken": "y",
+"start": 25.08,
+"end": 25.16
+},
+{
+"phrase": 8,
+"i": 10,
+"spoken": "nuevas",
+"start": 25.16,
+"end": 25.51
+},
+{
+"phrase": 8,
+"i": 11,
+"spoken": "molduras",
+"start": 25.51,
+"end": 26.06
+},
+{
+"phrase": 8,
+"i": 12,
+"spoken": "en",
+"start": 26.06,
+"end": 26.09
+},
+{
+"phrase": 8,
+"i": 13,
+"spoken": "el",
+"start": 26.09,
+"end": 26.19
+},
+{
+"phrase": 8,
+"i": 14,
+"spoken": "interior.",
+"start": 26.19,
+"end": 26.9
+},
+{
+"phrase": 9,
+"i": 0,
+"spoken": "También",
+"start": 26.9,
+"end": 27.12
+},
+{
+"phrase": 9,
+"i": 1,
+"spoken": "cuentan",
+"start": 27.12,
+"end": 27.49
+},
+{
+"phrase": 9,
+"i": 2,
+"spoken": "con",
+"start": 27.49,
+"end": 27.64
+},
+{
+"phrase": 9,
+"i": 3,
+"spoken": "tres",
+"start": 27.64,
+"end": 27.83
+},
+{
+"phrase": 9,
+"i": 4,
+"spoken": "pantallas,",
+"start": 27.83,
+"end": 28.55
+},
+{
+"phrase": 10,
+"i": 0,
+"spoken": "en",
+"start": 28.55,
+"end": 28.66
+},
+{
+"phrase": 10,
+"i": 1,
+"spoken": "la",
+"start": 28.66,
+"end": 28.76
+},
+{
+"phrase": 10,
+"i": 2,
+"spoken": "cual",
+"start": 28.76,
+"end": 28.97
+},
+{
+"phrase": 10,
+"i": 3,
+"spoken": "el",
+"start": 28.97,
+"end": 29.08
+},
+{
+"phrase": 10,
+"i": 4,
+"spoken": "acompañante",
+"start": 29.08,
+"end": 29.75
+},
+{
+"phrase": 10,
+"i": 5,
+"spoken": "va",
+"start": 29.75,
+"end": 29.83
+},
+{
+"phrase": 10,
+"i": 6,
+"spoken": "a",
+"start": 29.83,
+"end": 29.86
+},
+{
+"phrase": 10,
+"i": 7,
+"spoken": "poder",
+"start": 29.86,
+"end": 30.24
+},
+{
+"phrase": 10,
+"i": 8,
+"spoken": "ver",
+"start": 30.24,
+"end": 30.37
+},
+{
+"phrase": 10,
+"i": 9,
+"spoken": "películas,",
+"start": 30.37,
+"end": 31.2
+},
+{
+"phrase": 10,
+"i": 10,
+"spoken": "videos,",
+"start": 31.2,
+"end": 31.75
+},
+{
+"phrase": 11,
+"i": 0,
+"spoken": "va",
+"start": 31.75,
+"end": 31.8
+},
+{
+"phrase": 11,
+"i": 1,
+"spoken": "a",
+"start": 31.8,
+"end": 31.84
+},
+{
+"phrase": 11,
+"i": 2,
+"spoken": "poder",
+"start": 31.84,
+"end": 32.01
+},
+{
+"phrase": 11,
+"i": 3,
+"spoken": "entrar",
+"start": 32.01,
+"end": 32.2
+},
+{
+"phrase": 11,
+"i": 4,
+"spoken": "a",
+"start": 32.2,
+"end": 32.29
+},
+{
+"phrase": 11,
+"i": 5,
+"spoken": "yutub,",
+"start": 32.29,
+"end": 32.91
+},
+{
+"phrase": 11,
+"i": 6,
+"spoken": "netflix,",
+"start": 32.91,
+"end": 33.42
+},
+{
+"phrase": 11,
+"i": 7,
+"spoken": "amazon.",
+"start": 33.42,
+"end": 33.97
+},
+{
+"phrase": 12,
+"i": 0,
+"spoken": "Es",
+"start": 33.97,
+"end": 34.11
+},
+{
+"phrase": 12,
+"i": 1,
+"spoken": "muy",
+"start": 34.11,
+"end": 34.27
+},
+{
+"phrase": 12,
+"i": 2,
+"spoken": "interactivo.",
+"start": 34.27,
+"end": 35.08
+},
+{
+"phrase": 13,
+"i": 0,
+"spoken": "También",
+"start": 35.08,
+"end": 35.37
+},
+{
+"phrase": 13,
+"i": 1,
+"spoken": "contamos",
+"start": 35.37,
+"end": 35.7
+},
+{
+"phrase": 13,
+"i": 2,
+"spoken": "con",
+"start": 35.7,
+"end": 35.83
+},
+{
+"phrase": 13,
+"i": 3,
+"spoken": "mejoras",
+"start": 35.83,
+"end": 36.18
+},
+{
+"phrase": 13,
+"i": 4,
+"spoken": "en",
+"start": 36.18,
+"end": 36.27
+},
+{
+"phrase": 13,
+"i": 5,
+"spoken": "seguridad,",
+"start": 36.27,
+"end": 37.03
+},
+{
+"phrase": 14,
+"i": 0,
+"spoken": "como",
+"start": 37.03,
+"end": 37.15
+},
+{
+"phrase": 14,
+"i": 1,
+"spoken": "el",
+"start": 37.15,
+"end": 37.27
+},
+{
+"phrase": 14,
+"i": 2,
+"spoken": "Mercedes",
+"start": 37.27,
+"end": 37.71
+},
+{
+"phrase": 14,
+"i": 3,
+"spoken": "Benz",
+"start": 37.71,
+"end": 38.0
+},
+{
+"phrase": 14,
+"i": 4,
+"spoken": "draiv",
+"start": 38.0,
+"end": 38.27
+},
+{
+"phrase": 14,
+"i": 5,
+"spoken": "asístant",
+"start": 38.27,
+"end": 38.77
+},
+{
+"phrase": 14,
+"i": 6,
+"spoken": "plus,",
+"start": 38.77,
+"end": 39.32
+},
+{
+"phrase": 15,
+"i": 0,
+"spoken": "en",
+"start": 39.32,
+"end": 39.37
+},
+{
+"phrase": 15,
+"i": 1,
+"spoken": "el",
+"start": 39.37,
+"end": 39.5
+},
+{
+"phrase": 15,
+"i": 2,
+"spoken": "cual",
+"start": 39.5,
+"end": 39.76
+},
+{
+"phrase": 15,
+"i": 3,
+"spoken": "tenemos",
+"start": 39.76,
+"end": 40.14
+},
+{
+"phrase": 15,
+"i": 4,
+"spoken": "una",
+"start": 40.14,
+"end": 40.31
+},
+{
+"phrase": 15,
+"i": 5,
+"spoken": "interfaz",
+"start": 40.31,
+"end": 40.73
+},
+{
+"phrase": 15,
+"i": 6,
+"spoken": "más",
+"start": 40.73,
+"end": 40.91
+},
+{
+"phrase": 15,
+"i": 7,
+"spoken": "dinámica",
+"start": 40.91,
+"end": 41.39
+},
+{
+"phrase": 15,
+"i": 8,
+"spoken": "para",
+"start": 41.39,
+"end": 41.58
+},
+{
+"phrase": 15,
+"i": 9,
+"spoken": "prevención",
+"start": 41.58,
+"end": 42.2
+},
+{
+"phrase": 15,
+"i": 10,
+"spoken": "de",
+"start": 42.2,
+"end": 42.29
+},
+{
+"phrase": 15,
+"i": 11,
+"spoken": "choques",
+"start": 42.29,
+"end": 43.2
+},
+{
+"phrase": 16,
+"i": 0,
+"spoken": "con",
+"start": 43.2,
+"end": 43.35
+},
+{
+"phrase": 16,
+"i": 1,
+"spoken": "peatones,",
+"start": 43.35,
+"end": 43.69
+},
+{
+"phrase": 16,
+"i": 2,
+"spoken": "motocicletas,",
+"start": 43.69,
+"end": 44.82
+},
+{
+"phrase": 16,
+"i": 3,
+"spoken": "vehículos,",
+"start": 44.82,
+"end": 45.55
+},
+{
+"phrase": 16,
+"i": 4,
+"spoken": "camiones.",
+"start": 45.55,
+"end": 46.21
+},
+{
+"phrase": 17,
+"i": 0,
+"spoken": "Y",
+"start": 46.21,
+"end": 46.28
+},
+{
+"phrase": 17,
+"i": 1,
+"spoken": "también",
+"start": 46.28,
+"end": 46.59
+},
+{
+"phrase": 17,
+"i": 2,
+"spoken": "tenemos",
+"start": 46.59,
+"end": 46.9
+},
+{
+"phrase": 17,
+"i": 3,
+"spoken": "un",
+"start": 46.9,
+"end": 46.98
+},
+{
+"phrase": 17,
+"i": 4,
+"spoken": "modo",
+"start": 46.98,
+"end": 47.2
+},
+{
+"phrase": 17,
+"i": 5,
+"spoken": "de",
+"start": 47.2,
+"end": 47.27
+},
+{
+"phrase": 17,
+"i": 6,
+"spoken": "protección",
+"start": 47.27,
+"end": 47.7
+},
+{
+"phrase": 17,
+"i": 7,
+"spoken": "para",
+"start": 47.7,
+"end": 47.88
+},
+{
+"phrase": 17,
+"i": 8,
+"spoken": "aros",
+"start": 47.88,
+"end": 48.54
+},
+{
+"phrase": 18,
+"i": 0,
+"spoken": "y",
+"start": 48.54,
+"end": 48.65
+},
+{
+"phrase": 18,
+"i": 1,
+"spoken": "mejoras",
+"start": 48.65,
+"end": 49.09
+},
+{
+"phrase": 18,
+"i": 2,
+"spoken": "en",
+"start": 49.09,
+"end": 49.15
+},
+{
+"phrase": 18,
+"i": 3,
+"spoken": "el",
+"start": 49.15,
+"end": 49.31
+},
+{
+"phrase": 18,
+"i": 4,
+"spoken": "asistente",
+"start": 49.31,
+"end": 49.91
+},
+{
+"phrase": 18,
+"i": 5,
+"spoken": "de",
+"start": 49.91,
+"end": 50.09
+},
+{
+"phrase": 18,
+"i": 6,
+"spoken": "parque",
+"start": 50.09,
+"end": 50.37
+},
+{
+"phrase": 18,
+"i": 7,
+"spoken": "automático,",
+"start": 50.37,
+"end": 51.3
+},
+{
+"phrase": 19,
+"i": 0,
+"spoken": "salida",
+"start": 51.3,
+"end": 51.66
+},
+{
+"phrase": 19,
+"i": 1,
+"spoken": "de",
+"start": 51.66,
+"end": 51.79
+},
+{
+"phrase": 19,
+"i": 2,
+"spoken": "parqueo",
+"start": 51.79,
+"end": 52.09
+},
+{
+"phrase": 19,
+"i": 3,
+"spoken": "y",
+"start": 52.09,
+"end": 52.16
+},
+{
+"phrase": 19,
+"i": 4,
+"spoken": "también",
+"start": 52.16,
+"end": 52.55
+},
+{
+"phrase": 19,
+"i": 5,
+"spoken": "rivers",
+"start": 52.55,
+"end": 52.87
+},
+{
+"phrase": 19,
+"i": 6,
+"spoken": "automática.",
+"start": 52.87,
+"end": 53.64
+},
+{
+"phrase": 20,
+"i": 0,
+"spoken": "El",
+"start": 53.64,
+"end": 53.76
+},
+{
+"phrase": 20,
+"i": 1,
+"spoken": "vehículo",
+"start": 53.76,
+"end": 54.11
+},
+{
+"phrase": 20,
+"i": 2,
+"spoken": "cuenta",
+"start": 54.11,
+"end": 54.47
+},
+{
+"phrase": 20,
+"i": 3,
+"spoken": "con",
+"start": 54.47,
+"end": 54.68
+},
+{
+"phrase": 20,
+"i": 4,
+"spoken": "toda",
+"start": 54.68,
+"end": 54.96
+},
+{
+"phrase": 20,
+"i": 5,
+"spoken": "esta",
+"start": 54.96,
+"end": 55.26
+},
+{
+"phrase": 20,
+"i": 6,
+"spoken": "tecnología,",
+"start": 55.26,
+"end": 56.27
+},
+{
+"phrase": 21,
+"i": 0,
+"spoken": "tiene",
+"start": 56.27,
+"end": 56.4
+},
+{
+"phrase": 21,
+"i": 1,
+"spoken": "una",
+"start": 56.4,
+"end": 56.52
+},
+{
+"phrase": 21,
+"i": 2,
+"spoken": "cámara",
+"start": 56.52,
+"end": 56.71
+},
+{
+"phrase": 21,
+"i": 3,
+"spoken": "de",
+"start": 56.71,
+"end": 56.8
+},
+{
+"phrase": 21,
+"i": 4,
+"spoken": "trescientos",
+"start": 56.8,
+"end": 57.23
+},
+{
+"phrase": 21,
+"i": 5,
+"spoken": "sesenta",
+"start": 57.23,
+"end": 57.54
+},
+{
+"phrase": 21,
+"i": 6,
+"spoken": "grados,",
+"start": 57.54,
+"end": 58.22
+},
+{
+"phrase": 22,
+"i": 0,
+"spoken": "la",
+"start": 58.22,
+"end": 58.32
+},
+{
+"phrase": 22,
+"i": 1,
+"spoken": "cual",
+"start": 58.32,
+"end": 58.64
+},
+{
+"phrase": 22,
+"i": 2,
+"spoken": "puede",
+"start": 58.64,
+"end": 59.0
+},
+{
+"phrase": 22,
+"i": 3,
+"spoken": "leer",
+"start": 59.0,
+"end": 59.33
+},
+{
+"phrase": 22,
+"i": 4,
+"spoken": "el",
+"start": 59.33,
+"end": 59.48
+},
+{
+"phrase": 22,
+"i": 5,
+"spoken": "territorio",
+"start": 59.48,
+"end": 59.89
+},
+{
+"phrase": 22,
+"i": 6,
+"spoken": "delantero",
+"start": 59.89,
+"end": 60.43
+},
+{
+"phrase": 22,
+"i": 7,
+"spoken": "y",
+"start": 60.43,
+"end": 60.53
+},
+{
+"phrase": 22,
+"i": 8,
+"spoken": "ya",
+"start": 60.53,
+"end": 60.7
+},
+{
+"phrase": 22,
+"i": 9,
+"spoken": "guardarlo,",
+"start": 60.7,
+"end": 61.3
+},
+{
+"phrase": 23,
+"i": 0,
+"spoken": "y",
+"start": 61.3,
+"end": 61.35
+},
+{
+"phrase": 23,
+"i": 1,
+"spoken": "así",
+"start": 61.35,
+"end": 61.54
+},
+{
+"phrase": 23,
+"i": 2,
+"spoken": "se",
+"start": 61.54,
+"end": 61.65
+},
+{
+"phrase": 23,
+"i": 3,
+"spoken": "va",
+"start": 61.65,
+"end": 61.75
+},
+{
+"phrase": 23,
+"i": 4,
+"spoken": "presentando",
+"start": 61.75,
+"end": 62.27
+},
+{
+"phrase": 23,
+"i": 5,
+"spoken": "la",
+"start": 62.27,
+"end": 62.37
+},
+{
+"phrase": 23,
+"i": 6,
+"spoken": "parte",
+"start": 62.37,
+"end": 62.54
+},
+{
+"phrase": 23,
+"i": 7,
+"spoken": "inferior.",
+"start": 62.54,
+"end": 63.14
+},
+{
+"phrase": 24,
+"i": 0,
+"spoken": "Esto",
+"start": 63.14,
+"end": 63.37
+},
+{
+"phrase": 24,
+"i": 1,
+"spoken": "funciona",
+"start": 63.37,
+"end": 64.05
+},
+{
+"phrase": 24,
+"i": 2,
+"spoken": "con",
+"start": 64.05,
+"end": 64.31
+},
+{
+"phrase": 24,
+"i": 3,
+"spoken": "el",
+"start": 64.31,
+"end": 64.55
+},
+{
+"phrase": 24,
+"i": 4,
+"spoken": "modo",
+"start": 64.55,
+"end": 64.81
+},
+{
+"phrase": 24,
+"i": 5,
+"spoken": "eso",
+"start": 64.81,
+"end": 65.1
+},
+{
+"phrase": 24,
+"i": 6,
+"spoken": "principalmente.",
+"start": 65.1,
+"end": 66.04
+},
+{
+"phrase": 25,
+"i": 0,
+"spoken": "Lo",
+"start": 66.04,
+"end": 66.12
+},
+{
+"phrase": 25,
+"i": 1,
+"spoken": "mejor",
+"start": 66.12,
+"end": 66.36
+},
+{
+"phrase": 25,
+"i": 2,
+"spoken": "es",
+"start": 66.36,
+"end": 66.49
+},
+{
+"phrase": 25,
+"i": 3,
+"spoken": "que",
+"start": 66.49,
+"end": 66.57
+},
+{
+"phrase": 25,
+"i": 4,
+"spoken": "lo",
+"start": 66.57,
+"end": 66.64
+},
+{
+"phrase": 25,
+"i": 5,
+"spoken": "puedan",
+"start": 66.64,
+"end": 66.89
+},
+{
+"phrase": 25,
+"i": 6,
+"spoken": "venir",
+"start": 66.89,
+"end": 67.11
+},
+{
+"phrase": 25,
+"i": 7,
+"spoken": "a",
+"start": 67.11,
+"end": 67.19
+},
+{
+"phrase": 25,
+"i": 8,
+"spoken": "probar",
+"start": 67.19,
+"end": 67.47
+},
+{
+"phrase": 25,
+"i": 9,
+"spoken": "aquí",
+"start": 67.47,
+"end": 67.61
+},
+{
+"phrase": 25,
+"i": 10,
+"spoken": "en",
+"start": 67.61,
+"end": 67.66
+},
+{
+"phrase": 25,
+"i": 11,
+"spoken": "Auto",
+"start": 67.66,
+"end": 67.92
+},
+{
+"phrase": 25,
+"i": 12,
+"spoken": "Mayella",
+"start": 67.92,
+"end": 68.81
+},
+{
+"phrase": 26,
+"i": 0,
+"spoken": "y",
+"start": 68.81,
+"end": 68.88
+},
+{
+"phrase": 26,
+"i": 1,
+"spoken": "se",
+"start": 68.88,
+"end": 69.0
+},
+{
+"phrase": 26,
+"i": 2,
+"spoken": "la",
+"start": 69.0,
+"end": 69.05
+},
+{
+"phrase": 26,
+"i": 3,
+"spoken": "puedan",
+"start": 69.05,
+"end": 69.34
+},
+{
+"phrase": 26,
+"i": 4,
+"spoken": "llevar.",
+"start": 69.34,
+"end": 69.78
+}
+]

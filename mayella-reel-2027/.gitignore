@@ -1,4 +1,7 @@
 node_modules/
+renders/parts/
 renders/frames/
 preview/frames/
+preview/*.mp4
+preview/story_*.png
 *.log

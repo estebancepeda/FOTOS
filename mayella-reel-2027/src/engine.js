@@ -83,41 +83,46 @@ export async function loadIcon(name, url) {
 
 // ---------------------------------------------------------------- primitivas 2D
 const FONT = { display: '"Inter Display", "Inter", sans-serif', text: '"Inter", sans-serif' };
+const fontOf = (e, weight) => `${weight ?? e.weight ?? 300} ${e.size}px ${FONT[e.family || 'display']}`;
 
-function setFont(ctx, e) {
-  ctx.font = `${e.weight || 300} ${e.size}px ${FONT[e.family || 'display']}`;
+// Salida combinada: la de la escena y, si existe, la propia del elemento (e.out, relativo a la escena).
+function outQ(e, lt, sceneOut, i = 0) {
+  let q = sceneOut(i);
+  if (e.out != null) q = Math.max(q, ease.inCubic(prog(lt, e.out + i * 0.04, e.outDur ?? 0.4)));
+  return q;
 }
 
 // Texto palabra por palabra: cada palabra sube desde una máscara, con tracking que se cierra.
+// e.text (un peso) o e.segments [{text, weight}] (pesos mezclados en la misma línea).
 function drawText(ctx, e, lt, sceneOut) {
-  const words = e.text.split(' ');
-  setFont(ctx, e);
+  const words = [];
+  for (const seg of e.segments || [{ text: e.text, weight: e.weight }])
+    for (const w of seg.text.split(' ')) words.push({ w, weight: seg.weight ?? e.weight });
   const track0 = (e.tracking ?? 0.04) * e.size;
   const stagger = e.stagger ?? 0.07, dur = e.dur ?? 0.9, at = e.at ?? 0;
-  // ancho con el tracking final para que el bloque quede centrado al asentarse
   ctx.letterSpacing = `${track0}px`;
-  const space = ctx.measureText(' ').width;
-  const widths = words.map((w) => ctx.measureText(w).width);
+  ctx.font = fontOf(e);
+  const space = ctx.measureText(' ').width * (e.space ?? 1);
+  const widths = words.map((o) => { ctx.font = fontOf(e, o.weight); return ctx.measureText(o.w).width; });
   const total = widths.reduce((s, w) => s + w, 0) + space * (words.length - 1);
-  let x = CX - total / 2;
+  let x = CX + (e.x || 0) - total / 2;
   const y = CY + e.y;
   ctx.save();
-  // máscara de línea: las palabras emergen por debajo de esta franja
-  ctx.beginPath();
+  ctx.beginPath();                                    // máscara de línea
   ctx.rect(0, y - e.size * 1.15, W, e.size * 1.55);
   ctx.clip();
-  words.forEach((w, i) => {
+  ctx.fillStyle = '#fff';
+  ctx.textBaseline = 'alphabetic';
+  words.forEach((o, i) => {
     const p = ease.outExpo(prog(lt, at + i * stagger, dur));
-    const q = sceneOut(i);
-    if (p <= 0 || q >= 1) { x += widths[i] + space; return; }
-    const extra = (1 - p) * 0.22 * e.size;            // tracking que se cierra al entrar
-    ctx.letterSpacing = `${track0 + extra}px`;
-    const wNow = ctx.measureText(w).width;
-    ctx.globalAlpha = (e.alpha ?? 1) * p * (1 - q);
-    const dy = (1 - p) * e.size * 0.95 - q * e.size * 0.35;
-    ctx.fillStyle = '#fff';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillText(w, x + (widths[i] - wNow) / 2, y + dy);
+    const q = outQ(e, lt, sceneOut, i);
+    if (p > 0 && q < 1) {
+      ctx.font = fontOf(e, o.weight);
+      ctx.letterSpacing = `${track0 + (1 - p) * 0.22 * e.size}px`;   // tracking que se cierra al entrar
+      const wNow = ctx.measureText(o.w).width;
+      ctx.globalAlpha = (e.alpha ?? 1) * p * (1 - q);
+      ctx.fillText(o.w, x + (widths[i] - wNow) / 2, y + (1 - p) * e.size * 0.95 - q * e.size * 0.35);
+    }
     x += widths[i] + space;
   });
   ctx.restore();
@@ -127,15 +132,15 @@ function drawIcon(ctx, e, lt, sceneOut) {
   const parts = icons[e.name];
   if (!parts) throw new Error('ícono no cargado: ' + e.name);
   const p = ease.inOutCubic(prog(lt, e.at ?? 0, e.dur ?? 1.1));
-  const q = sceneOut(0);
+  const q = outQ(e, lt, sceneOut);
   if (p <= 0 || q >= 1) return;
   const s = e.size / 24;
-  ctx.save();
-  ctx.translate(CX + (e.x || 0), CY + e.y);
   const pop = ease.outCubic(prog(lt, e.at ?? 0, (e.dur ?? 1.1) * 0.8));
+  ctx.save();
+  ctx.translate(CX + (e.x || 0), CY + e.y - q * 20);
   ctx.scale(s * (0.9 + 0.1 * pop), s * (0.9 + 0.1 * pop));
   ctx.translate(-12, -12);
-  ctx.lineWidth = (e.stroke ?? 1.1);
+  ctx.lineWidth = e.stroke ?? 1.1;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
   ctx.strokeStyle = '#fff';
@@ -148,47 +153,65 @@ function drawIcon(ctx, e, lt, sceneOut) {
   ctx.restore();
 }
 
+// Ícono con etiqueta debajo.
+function drawIconLabel(ctx, e, lt, sceneOut) {
+  const size = e.size ?? 110;
+  drawIcon(ctx, { ...e, name: e.icon, size, dur: e.dur ?? 1.0 }, lt, sceneOut);
+  const lines = Array.isArray(e.label) ? e.label : [e.label];
+  lines.forEach((txt, k) => drawText(ctx, { text: txt, x: e.x || 0, y: e.y + size * 0.5 + 66 + k * (e.labelSize ?? 32) * 1.25,
+    size: e.labelSize ?? 32, weight: 500, family: 'text', tracking: e.labelTracking ?? 0.14, at: (e.at ?? 0) + 0.3 + k * 0.08,
+    dur: 0.8, stagger: 0.05, out: e.out, outDur: e.outDur }, lt, sceneOut));
+}
+
+// Fila de íconos con etiqueta (cada uno puede tener su propio tiempo it.at).
+function drawIconRow(ctx, e, lt, sceneOut) {
+  const n = e.items.length, gap = e.gap ?? 300;
+  e.items.forEach((it, i) => drawIconLabel(ctx, { ...e, icon: it.icon, label: it.label, x: (i - (n - 1) / 2) * gap,
+    at: it.at ?? (e.at ?? 0) + i * (e.stagger ?? 0.18) }, lt, sceneOut));
+}
+
 // Línea fina que se abre desde el centro.
 function drawRule(ctx, e, lt, sceneOut) {
   const p = ease.outExpo(prog(lt, e.at ?? 0, e.dur ?? 1.0));
-  const q = sceneOut(0);
+  const q = outQ(e, lt, sceneOut);
   if (p <= 0 || q >= 1) return;
   const half = (e.w / 2) * p * (1 - 0.6 * q);
+  const x0 = CX + (e.x || 0);
   ctx.save();
   ctx.globalAlpha = (e.alpha ?? 0.7) * (1 - q);
-  const g = ctx.createLinearGradient(CX - half, 0, CX + half, 0);
+  const g = ctx.createLinearGradient(x0 - half, 0, x0 + half, 0);
   g.addColorStop(0, 'rgba(255,255,255,0)');
   g.addColorStop(0.5, 'rgba(255,255,255,1)');
   g.addColorStop(1, 'rgba(255,255,255,0)');
   ctx.fillStyle = g;
-  ctx.fillRect(CX - half, CY + e.y - (e.h || 2) / 2, 2 * half, e.h || 2);
+  ctx.fillRect(x0 - half, CY + e.y - (e.h || 2) / 2, 2 * half, e.h || 2);
   ctx.restore();
 }
 
 function drawImage(ctx, e, lt, sceneOut) {
   const img = images[e.name];
   const p = ease.outCubic(prog(lt, e.at ?? 0, e.dur ?? 0.8));
-  const q = sceneOut(0);
+  const q = outQ(e, lt, sceneOut);
   if (p <= 0 || q >= 1) return;
   const w = e.w * (e.grow ? lerp(0.94, 1, ease.outExpo(prog(lt, e.at ?? 0, 2.0))) : 1);
   const h = w * img.height / img.width;
   ctx.save();
   ctx.globalAlpha = (e.fade === false ? 1 : p) * (1 - q);
-  ctx.drawImage(img, CX + (e.x || 0) - w / 2, CY + e.y - h / 2, w, h);
+  ctx.drawImage(img, CX + (e.x || 0) - w / 2, CY + e.y - h / 2 - q * 20, w, h);
   ctx.restore();
 }
 
-// Número que rueda (p. ej. 2027): cada dígito pasa por valores anteriores antes de fijarse.
+// Número que rueda: cada dígito pasa por valores anteriores antes de fijarse.
 function drawCounter(ctx, e, lt, sceneOut) {
   const str = String(e.to);
   const from = String(e.from ?? 0).padStart(str.length, '0');
-  setFont(ctx, e);
+  ctx.font = fontOf(e);
   ctx.letterSpacing = `${(e.tracking ?? 0.02) * e.size}px`;
   const dw = str.split('').map((c) => ctx.measureText(c).width);
   const total = dw.reduce((s, w) => s + w, 0);
-  let x = CX - total / 2;
+  let x = CX + (e.x || 0) - total / 2;
   const y = CY + e.y;
-  const q = sceneOut(0);
+  const q = outQ(e, lt, sceneOut);
   ctx.save();
   ctx.beginPath();
   ctx.rect(0, y - e.size * 0.92, W, e.size * 1.02);
@@ -210,21 +233,210 @@ function drawCounter(ctx, e, lt, sceneOut) {
   ctx.restore();
 }
 
-// Fila de íconos con etiqueta debajo (lista de características).
-function drawIconRow(ctx, e, lt, sceneOut) {
+// Destello de cuatro puntas (estrella genérica, no es el logotipo).
+function sparkle(ctx, x, y, r, a) {
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.globalAlpha = a;
+  ctx.beginPath();
+  const k = r * 0.22;
+  ctx.moveTo(0, -r); ctx.quadraticCurveTo(k, -k, r, 0); ctx.quadraticCurveTo(k, k, 0, r);
+  ctx.quadraticCurveTo(-k, k, -r, 0); ctx.quadraticCurveTo(-k, -k, 0, -r);
+  ctx.fill();
+  ctx.restore();
+}
+
+// Patrón de estrellas en forma de faro: aparecen en ola de izquierda a derecha y titilan.
+function drawStars(ctx, e, lt, sceneOut) {
+  const q = outQ(e, lt, sceneOut);
+  if (q >= 1) return;
+  const cols = e.cols ?? 11, rows = e.rows ?? 3, sp = e.spacing ?? 62;
+  ctx.save();
+  ctx.fillStyle = '#fff';
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    const u = (c - (cols - 1) / 2) / ((cols - 1) / 2);            // −1..1
+    const x = CX + (e.x || 0) + (c - (cols - 1) / 2) * sp + (r % 2) * sp * 0.5 - sp * 0.25;
+    // contorno de faro: filas que se estrechan hacia los extremos y una ligera curva
+    const y = CY + e.y + (r - (rows - 1) / 2) * sp * 0.78 + 26 * u * u - 10 * u;
+    if (Math.abs(u) > 1 - 0.18 * Math.abs(r - (rows - 1) / 2)) continue;
+    const delay = (e.at ?? 0) + (u + 1) * 0.45 + r * 0.06;
+    const p = ease.outCubic(prog(lt, delay, 0.6));
+    if (p <= 0) continue;
+    const tw = 0.75 + 0.25 * Math.sin(lt * 3.1 + c * 1.7 + r * 2.3);
+    sparkle(ctx, x, y, (e.size ?? 13) * p * tw * (1 - 0.3 * q), (1 - q) * clamp(p * 2) * (0.55 + 0.45 * tw));
+  }
+  ctx.restore();
+}
+
+function roundRectPath(x, y, w, h, r) {
+  const p = new Path2D();
+  p.moveTo(x + r, y); p.lineTo(x + w - r, y); p.arcTo(x + w, y, x + w, y + r, r);
+  p.lineTo(x + w, y + h - r); p.arcTo(x + w, y + h, x + w - r, y + h, r);
+  p.lineTo(x + r, y + h); p.arcTo(x, y + h, x, y + h - r, r);
+  p.lineTo(x, y + r); p.arcTo(x, y, x + r, y, r);
+  p.closePath();
+  return p;
+}
+
+// Tres pantallas bajo un mismo cristal: contorno trazado, divisiones y líneas de interfaz.
+function drawScreens(ctx, e, lt, sceneOut) {
+  const q = outQ(e, lt, sceneOut);
+  const p = ease.inOutCubic(prog(lt, e.at ?? 0, 1.1));
+  if (p <= 0 || q >= 1) return;
+  const w = e.w ?? 800, h = e.h ?? 150, x0 = CX - w / 2, y0 = CY + e.y - h / 2;
+  const per = 2 * (w + h);
+  ctx.save();
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 3;
+  ctx.globalAlpha = 1 - q;
+  ctx.setLineDash([per * p, per]);
+  ctx.stroke(roundRectPath(x0, y0, w, h, 26));
+  ctx.setLineDash([]);
+  // divisiones (aparecen una por una)
+  for (let k = 1; k < 3; k++) {
+    const d = ease.outCubic(prog(lt, (e.at ?? 0) + 0.6 + k * 0.15, 0.5));
+    const x = x0 + (w * k) / 3;
+    ctx.globalAlpha = (1 - q) * d * 0.85;
+    ctx.beginPath(); ctx.moveTo(x, y0 + h / 2 - (h / 2 - 16) * d); ctx.lineTo(x, y0 + h / 2 + (h / 2 - 16) * d); ctx.stroke();
+  }
+  // contenido sugerido en cada pantalla
+  for (let k = 0; k < 3; k++) {
+    const d = ease.outExpo(prog(lt, (e.at ?? 0) + 0.9 + k * 0.2, 0.8));
+    if (d <= 0) continue;
+    const sx = x0 + (w * k) / 3 + 30, sw = w / 3 - 60;
+    ctx.globalAlpha = (1 - q) * d * 0.55;
+    ctx.lineWidth = 2;
+    for (let l = 0; l < 3; l++) {
+      ctx.beginPath(); ctx.moveTo(sx, y0 + 46 + l * 26); ctx.lineTo(sx + sw * d * (l === 0 ? 0.8 : l === 1 ? 0.55 : 0.68), y0 + 46 + l * 26); ctx.stroke();
+    }
+  }
+  ctx.restore();
+}
+
+// Anillo 0→360° con marcas y contador central en celdas de ancho fijo.
+function drawRing(ctx, e, lt, sceneOut) {
+  const q = outQ(e, lt, sceneOut);
+  const p = ease.inOutCubic(prog(lt, e.at ?? 0, e.dur ?? 1.6));
+  if (p <= 0 || q >= 1) return;
+  const r = e.r ?? 190, cx = CX + (e.x || 0), cy = CY + e.y;
+  ctx.save();
+  ctx.globalAlpha = 1 - q;
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 3;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI * p);
+  ctx.stroke();
+  // marcas cada 30°
+  ctx.lineWidth = 2;
+  for (let k = 0; k < 12; k++) {
+    const f = k / 12;
+    if (f > p) break;
+    const a = -Math.PI / 2 + 2 * Math.PI * f;
+    const m = ease.outCubic(clamp((p - f) * 6));
+    ctx.globalAlpha = (1 - q) * 0.7 * m;
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.cos(a) * (r + 14), cy + Math.sin(a) * (r + 14));
+    ctx.lineTo(cx + Math.cos(a) * (r + 14 + 16 * m), cy + Math.sin(a) * (r + 14 + 16 * m));
+    ctx.stroke();
+  }
+  // punto que recorre el anillo
+  const a = -Math.PI / 2 + 2 * Math.PI * p;
+  ctx.globalAlpha = (1 - q) * (1 - smooth(0.92, 1, p) * 0.6);
+  ctx.fillStyle = '#fff';
+  ctx.beginPath(); ctx.arc(cx + Math.cos(a) * r, cy + Math.sin(a) * r, 7, 0, 2 * Math.PI); ctx.fill();
+  // contador
+  const val = String(Math.round((e.value ?? 360) * p));
+  ctx.font = fontOf({ size: e.size ?? 120, weight: 200 });
+  ctx.letterSpacing = '0px';
+  const cell = ctx.measureText('0').width;
+  const deg = e.unit ?? '°';
+  const degW = ctx.measureText(deg).width;
+  const tw = cell * val.length + degW;
+  let x = cx - tw / 2;
+  ctx.globalAlpha = (1 - q) * clamp(p * 3);
+  ctx.textBaseline = 'middle';
+  for (const ch of val) { ctx.fillText(ch, x + (cell - ctx.measureText(ch).width) / 2, cy + 6); x += cell; }
+  ctx.fillText(deg, x, cy + 6);
+  ctx.restore();
+}
+
+// Pulso tipo radar: anillos que se expanden desde un punto.
+function drawPulse(ctx, e, lt, sceneOut) {
+  const q = outQ(e, lt, sceneOut);
+  const p = prog(lt, e.at ?? 0, 0.6);
+  if (p <= 0 || q >= 1) return;
+  const cx = CX + (e.x || 0), cy = CY + e.y, r0 = e.r0 ?? 70, r1 = e.r1 ?? 300, period = e.period ?? 1.6;
+  ctx.save();
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 2;
+  for (let k = 0; k < 3; k++) {
+    const ph = (((lt - (e.at ?? 0)) / period + k / 3) % 1 + 1) % 1;
+    ctx.globalAlpha = (1 - q) * p * 0.55 * Math.pow(1 - ph, 1.5);
+    ctx.beginPath(); ctx.arc(cx, cy, lerp(r0, r1, ease.outCubic(ph)), 0, 2 * Math.PI); ctx.stroke();
+  }
+  ctx.restore();
+}
+
+// Etiquetas en cápsula (p. ej. plataformas), cada una con su tiempo.
+function drawChips(ctx, e, lt, sceneOut) {
+  const size = e.size ?? 44, gap = e.gap ?? 112;
   const n = e.items.length;
-  const gap = e.gap ?? 300;
   e.items.forEach((it, i) => {
-    const x = (i - (n - 1) / 2) * gap;
-    const at = (e.at ?? 0) + i * (e.stagger ?? 0.18);
-    drawIcon(ctx, { name: it.icon, x, y: e.y, size: e.size ?? 110, at, dur: 1.0, stroke: e.stroke }, lt, sceneOut);
-    const sub = { text: it.label, y: e.y + (e.size ?? 110) * 0.5 + 78, size: e.labelSize ?? 34, weight: 500,
-      family: 'text', tracking: 0.14, at: at + 0.35, dur: 0.8, stagger: 0.05 };
+    const q = outQ(e, lt, sceneOut, i);
+    const p = ease.outExpo(prog(lt, it.at, 0.8));
+    if (p <= 0 || q >= 1) return;
     ctx.save();
-    ctx.translate(x, 0);
-    drawText(ctx, sub, lt, sceneOut);
+    ctx.font = fontOf({ size, weight: 400 });
+    ctx.letterSpacing = `${0.02 * size}px`;
+    const tw = ctx.measureText(it.text).width;
+    const w = tw + size * 1.6, h = size * 1.75;
+    const cx = CX + (e.x || 0), cy = CY + e.y + (i - (n - 1) / 2) * gap - (1 - p) * 30 - q * 20;
+    ctx.globalAlpha = (1 - q) * clamp(p * 1.5);
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 2;
+    const per = 2 * (w + h);
+    ctx.setLineDash([per * p, per]);
+    ctx.stroke(roundRectPath(cx - w / 2, cy - h / 2, w, h, h / 2));
+    ctx.setLineDash([]);
+    ctx.fillStyle = '#fff';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(it.text, cx - tw / 2, cy + 2);
     ctx.restore();
   });
+}
+
+// Lectura del terreno: rejilla en perspectiva bajo el vehículo y una línea de escaneo.
+function drawScan(ctx, e, lt, sceneOut) {
+  const q = outQ(e, lt, sceneOut);
+  const p = ease.outCubic(prog(lt, e.at ?? 0, 1.0));
+  if (p <= 0 || q >= 1) return;
+  const cx = CX, top = CY + e.y, w = e.w ?? 640, h = e.h ?? 220;
+  ctx.save();
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 1.5;
+  // líneas horizontales que se alejan
+  for (let k = 0; k <= 6; k++) {
+    const f = k / 6, y = top + h * Math.pow(f, 1.6);
+    const half = lerp(w * 0.32, w * 0.5, f) * p;
+    ctx.globalAlpha = (1 - q) * 0.35 * clamp(p * 2 - f);
+    ctx.beginPath(); ctx.moveTo(cx - half, y); ctx.lineTo(cx + half, y); ctx.stroke();
+  }
+  // líneas que convergen
+  for (let k = -4; k <= 4; k++) {
+    ctx.globalAlpha = (1 - q) * 0.3 * p;
+    ctx.beginPath(); ctx.moveTo(cx + k * w * 0.08 * p, top); ctx.lineTo(cx + k * w * 0.125 * p, top + h); ctx.stroke();
+  }
+  // barrido de escaneo
+  const ph = (((lt - (e.at ?? 0)) / (e.period ?? 1.4)) % 1 + 1) % 1;
+  const y = top + h * ease.inOutSine(ph);
+  const half = lerp(w * 0.32, w * 0.5, ph) * p;
+  const g = ctx.createLinearGradient(cx - half, 0, cx + half, 0);
+  g.addColorStop(0, 'rgba(255,255,255,0)'); g.addColorStop(0.5, 'rgba(255,255,255,1)'); g.addColorStop(1, 'rgba(255,255,255,0)');
+  ctx.globalAlpha = (1 - q) * p * 0.9;
+  ctx.fillStyle = g;
+  ctx.fillRect(cx - half, y - 1.5, 2 * half, 3);
+  ctx.restore();
 }
 
 // Partículas de polvo de luz, muy tenues (profundidad sin velo).
@@ -247,13 +459,21 @@ function drawDust(ctx, t, amount) {
   ctx.restore();
 }
 
-const DRAW = { text: drawText, icon: drawIcon, rule: drawRule, image: drawImage, counter: drawCounter, iconrow: drawIconRow };
+const DRAW = { text: drawText, icon: drawIcon, iconlabel: drawIconLabel, iconrow: drawIconRow, rule: drawRule,
+  image: drawImage, counter: drawCounter, stars: drawStars, screens: drawScreens, ring: drawRing, pulse: drawPulse,
+  chips: drawChips, scan: drawScan };
 
 export function drawScene(ctx, scene, t) {
   const lt = t - scene.t0;
-  const outAt = scene.t1 - scene.t0 - (scene.outDur ?? 0.45);
-  const sceneOut = (i) => (scene.cut ? 0 : ease.inCubic(prog(lt, outAt + i * 0.04, scene.outDur ?? 0.45)));
+  const outDur = scene.outDur ?? 0.4;
+  const outAt = scene.t1 - scene.t0 - outDur;
+  const sceneOut = (i) => (scene.cut ? 0 : ease.inCubic(prog(lt, outAt + i * 0.03, outDur)));
+  // acercamiento muy lento durante toda la escena: nunca queda totalmente quieta
+  const z = 1 + (scene.drift ?? 0.03) * ease.inOutSine(clamp(lt / Math.max(scene.t1 - scene.t0, 0.5)));
+  ctx.save();
+  ctx.translate(CX, CY); ctx.scale(z, z); ctx.translate(-CX, -CY);
   for (const e of scene.els) DRAW[e.type](ctx, e, lt, sceneOut);
+  ctx.restore();
 }
 
 // ---------------------------------------------------------------- lente de cristal (WebGL)

@@ -3,6 +3,7 @@
 //   node render.mjs video  [story] [subframes]      → renders/<story>.mp4 (con audio)
 //   node render.mjs stills [story] t1 t2 …          → preview/<story>_t.png
 //   node render.mjs range  [story] from to [sub]    → video parcial sin audio (pruebas)
+//   node render.mjs part   story f0 f1 salida.mp4 sub → bloque de cuadros [f0, f1) sin audio (render en paralelo)
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -70,6 +71,20 @@ if (mode === 'stills') {
     console.log('ok', out);
   }
   await browser.close(); srv.close();
+} else if (mode === 'part') {
+  const [f0, f1, out, subS] = rest;
+  const { srv, browser, page } = await open(story, parseInt(subS || '3', 10));
+  const ff = ffmpegRaw(path.resolve(out), false);
+  const t0 = Date.now();
+  for (let f = parseInt(f0, 10); f < parseInt(f1, 10); f++) {
+    const raw = await grabTo(page, f);
+    if (!ff.stdin.write(raw)) await new Promise((ok) => ff.stdin.once('drain', ok));
+    if (f % 60 === 0) console.log(`[${f0}-${f1}] cuadro ${f}  ${((Date.now() - t0) / 1000).toFixed(0)} s`);
+  }
+  ff.stdin.end();
+  await new Promise((ok) => ff.on('close', ok));
+  await browser.close(); srv.close();
+  console.log('ok', out);
 } else {
   const sub = parseInt(mode === 'range' ? rest[2] || '3' : rest[0] || '3', 10);
   const { srv, browser, page } = await open(story, sub);

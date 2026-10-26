@@ -5,7 +5,7 @@ Precisión estimada ±0.3 s por frase. Entre corchetes: partes que el cliente ma
 
 | Inicio | Fin | Frase |
 |---:|---:|---|
-| 0.00 s | 3.30 s | Marcel Hernández, experto de producto de Mercedes-Benz Autosama, |
+| 0.00 s | 3.30 s | Marcel Hernández, experto de producto de Mercedes-Benz Autozama, |
 | 3.30 s | 6.32 s | y para mí es un placer poder presentarles aquí en Auto Mayella |
 | 6.32 s | 8.83 s | la nueva GLE 450 AMG Line, |
 | 8.83 s | 10.38 s | la GLS 450 AMG Line |

@@ -1,7 +1,7 @@
 # Reel · Lanzamiento Mercedes-Benz 2027 en Auto Mayella
 
 Motion graphics vertical **1080 × 1920, 30 fps, 71 s**, fondo negro y gráficos blancos, sincronizado con
-`assets/audio/AUDIO_MERCEDES_MAYELLA.mp3` (Marcel Hernández, Mercedes-Benz Autosama). Pensado para montarse
+`assets/audio/AUDIO_MERCEDES_MAYELLA.mp3` (Marcel Hernández, Mercedes-Benz Autozama). Pensado para montarse
 después dentro de otra edición.
 
 ## Entregables

@@ -76,7 +76,7 @@ function build() {
       title('Marcel Hernández', -110, 0.1, { size: 88 }),
       { type: 'rule', y: -40, w: 520, T: 0.6 },
       kicker('EXPERTO DE PRODUCTO', 40, w(0, 2)),
-      kicker('MERCEDES-BENZ AUTOSAMA', 100, w(0, 6), { weight: 600 }),
+      kicker('MERCEDES-BENZ AUTOZAMA', 100, w(0, 6), { weight: 600 }),
     ], { cut: true }),
 
     // 2 · «…presentarles aquí en Auto Mayella»

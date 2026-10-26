@@ -24,7 +24,7 @@ SR = 16000
 # Guion del cliente. (texto tal como se dijo, lectura para la síntesis)
 # Las partes que el cliente marcó como no claras se leen como «eso» (relleno neutro).
 SCRIPT = [
-    ("Marcel Hernández, experto de producto de Mercedes-Benz Autosama,",
+    ("Marcel Hernández, experto de producto de Mercedes-Benz Autozama,",
      "Marcel Hernández, experto de producto de Mercedes Benz Autosama,"),
     ("y para mí es un placer poder presentarles aquí en Auto Mayella",
      "y para mí es un placer poder presentarles aquí en Auto Mayella"),

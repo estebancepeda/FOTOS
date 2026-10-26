@@ -21,7 +21,7 @@ AUDIO = ROOT / "assets/audio/AUDIO_MERCEDES_MAYELLA.mp3"
 # (texto en pantalla/guion, lectura fonética para contar sílabas, fin de oración)
 PHRASES = [
     ("Marcel Hernández,", "marsel ernandes", False),
-    ("experto de producto de Mercedes-Benz Autosama,", "experto de produkto de mersedes bens autosama", False),
+    ("experto de producto de Mercedes-Benz Autozama,", "experto de produkto de mersedes bens autosama", False),
     ("y para mí es un placer poder presentarles aquí en Auto Mayella", "i para mi es un plaser poder presentarles aki en auto maiella", False),
     ("la nueva GLE 450 AMG Line,", "la nueva je ele e kuatro sinkuenta a eme je lain", False),
     ("la GLS 450 AMG Line", "la je ele ese kuatro sinkuenta a eme je lain", False),

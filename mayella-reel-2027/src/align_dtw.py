@@ -53,7 +53,7 @@ SCRIPT = [
     ("y mejoras en el asistente de parque automático,", "y mejoras en el asistente de parque automático,"),
     ("salida de parqueo y también reverse automática.", "salida de parqueo y también rivers automática."),
     ("El vehículo cuenta con toda esta tecnología,", "El vehículo cuenta con toda esta tecnología,"),
-    ("tiene una cámara de [360] grados,", "tiene una cámara de trescientos sesenta grados,"),
+    ("tiene una cámara de 560 grados,", "tiene una cámara de quinientos sesenta grados,"),
     ("la cual puede leer el territorio delantero y ya guardarlo,",
      "la cual puede leer el territorio delantero y ya guardarlo,"),
     ("y así se va presentando la parte inferior.", "y así se va presentando la parte inferior."),

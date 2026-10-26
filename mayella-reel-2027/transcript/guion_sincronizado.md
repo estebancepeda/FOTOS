@@ -26,7 +26,7 @@ Precisión estimada ±0.3 s por frase. Entre corchetes: partes que el cliente ma
 | 48.54 s | 51.30 s | y mejoras en el asistente de parque automático, |
 | 51.30 s | 53.64 s | salida de parqueo y también reverse automática. |
 | 53.64 s | 56.27 s | El vehículo cuenta con toda esta tecnología, |
-| 56.27 s | 58.22 s | tiene una cámara de [360] grados, |
+| 56.27 s | 58.22 s | tiene una cámara de 560 grados, |
 | 58.22 s | 61.30 s | la cual puede leer el territorio delantero y ya guardarlo, |
 | 61.30 s | 63.14 s | y así se va presentando la parte inferior. |
 | 63.14 s | 66.04 s | Esto funciona con el modo [modo] principalmente. |

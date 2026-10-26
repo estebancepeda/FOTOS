@@ -1,5 +1,6 @@
 node_modules/
 renders/parts/
+renders/fix*/
 renders/frames/
 preview/frames/
 preview/*.mp4

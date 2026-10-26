@@ -313,40 +313,54 @@ function drawScreens(ctx, e, lt, sceneOut) {
   ctx.restore();
 }
 
-// Anillo 0→360° con marcas y contador central en celdas de ancho fijo.
+// Anillo con marcas y contador central (celdas de ancho fijo). Si value > 360, el punto da
+// más de una vuelta: la vuelta extra se dibuja en un anillo interior (p. ej. 560° = 1 vuelta + 200°).
 function drawRing(ctx, e, lt, sceneOut) {
   const q = outQ(e, lt, sceneOut);
   const p = ease.inOutCubic(prog(lt, e.at ?? 0, e.dur ?? 1.6));
   if (p <= 0 || q >= 1) return;
   const r = e.r ?? 190, cx = CX + (e.x || 0), cy = CY + e.y;
+  const value = e.value ?? 360;
+  const total = 2 * Math.PI * (value / 360) * p;            // ángulo recorrido
+  const start = -Math.PI / 2, TAU = 2 * Math.PI;
   ctx.save();
   ctx.globalAlpha = 1 - q;
   ctx.strokeStyle = '#fff';
   ctx.lineWidth = 3;
   ctx.lineCap = 'round';
   ctx.beginPath();
-  ctx.arc(cx, cy, r, -Math.PI / 2, -Math.PI / 2 + 2 * Math.PI * p);
+  ctx.arc(cx, cy, r, start, start + Math.min(total, TAU));
   ctx.stroke();
-  // marcas cada 30°
+  const inner = r - 24;
+  if (total > TAU) {                                         // vuelta extra, en el anillo interior
+    ctx.globalAlpha = (1 - q) * 0.8;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, inner, start, start + (total - TAU));
+    ctx.stroke();
+  }
+  // marcas cada 30° de la primera vuelta
   ctx.lineWidth = 2;
+  const p1 = Math.min(total / TAU, 1);
   for (let k = 0; k < 12; k++) {
     const f = k / 12;
-    if (f > p) break;
-    const a = -Math.PI / 2 + 2 * Math.PI * f;
-    const m = ease.outCubic(clamp((p - f) * 6));
+    if (f > p1) break;
+    const a = start + TAU * f;
+    const m = ease.outCubic(clamp((p1 - f) * 6));
     ctx.globalAlpha = (1 - q) * 0.7 * m;
     ctx.beginPath();
     ctx.moveTo(cx + Math.cos(a) * (r + 14), cy + Math.sin(a) * (r + 14));
     ctx.lineTo(cx + Math.cos(a) * (r + 14 + 16 * m), cy + Math.sin(a) * (r + 14 + 16 * m));
     ctx.stroke();
   }
-  // punto que recorre el anillo
-  const a = -Math.PI / 2 + 2 * Math.PI * p;
+  // punto que recorre el anillo (pasa al anillo interior en la vuelta extra)
+  const a = start + total;
+  const rr = total > TAU ? lerp(r, inner, clamp((total - TAU) / 0.35)) : r;
   ctx.globalAlpha = (1 - q) * (1 - smooth(0.92, 1, p) * 0.6);
   ctx.fillStyle = '#fff';
-  ctx.beginPath(); ctx.arc(cx + Math.cos(a) * r, cy + Math.sin(a) * r, 7, 0, 2 * Math.PI); ctx.fill();
+  ctx.beginPath(); ctx.arc(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr, 7, 0, TAU); ctx.fill();
   // contador
-  const val = String(Math.round((e.value ?? 360) * p));
+  const val = String(Math.round(value * p));
   ctx.font = fontOf({ size: e.size ?? 120, weight: 200 });
   ctx.letterSpacing = '0px';
   const cell = ctx.measureText('0').width;

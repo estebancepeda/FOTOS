@@ -87,10 +87,10 @@ Tiempos en el video (s). Generado por `src/sfx.py`.
 | 53.74 | ícono cpu |
 | 54.57 | texto pequeño |
 | 55.16 | texto |
+| 56.40 | anillo 560° |
 | 56.41 | texto pequeño |
-| 56.48 | anillo 360° |
 | 57.43 | texto pequeño |
-| 58.15 | ícono car-front |
+| 58.69 | ícono car-front |
 | 59.16 | escaneo |
 | 59.37 | texto pequeño |
 | 60.46 | escaneo |

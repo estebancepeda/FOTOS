@@ -189,13 +189,13 @@ function build() {
       kicker('TODA ESTA', 10, w(20, 4)),
       title('Tecnología', 110, w(20, 6), { size: 88, weight: 600 }),
     ], { outDur: 0.35 }),
-    scene(w(21, 0) + LEAD, w(22, 0) + LEAD, [
+    scene(w(21, 0) + LEAD, w(22, 2) + LEAD, [
       kicker('CÁMARA', -330, w(21, 2), { weight: 600, size: 38 }),
-      { type: 'ring', y: -20, r: 200, size: 118, value: 360, T: w(21, 4) - 0.2, dur: 1.5 },
+      { type: 'ring', y: -20, r: 200, size: 112, value: 560, T: w(21, 2), dur: 1.45 },
       kicker('GRADOS', 255, w(21, 6)),
     ], { outDur: 0.3 }),
-    scene(w(22, 0) + LEAD, s10, [
-      { type: 'icon', name: 'car-front', y: -300, size: 130, T: w(22, 0) + 0.05 },
+    scene(w(22, 2) + LEAD, s10, [
+      { type: 'icon', name: 'car-front', y: -300, size: 130, T: w(22, 2) + LEAD + 0.05 },
       { type: 'scan', y: -210, w: 620, h: 210, T: w(22, 5) - 0.2, period: 1.3 },
       kicker('LEE EL TERRENO DELANTERO', 90, w(22, 5), { size: 36, tracking: 0.2 }),
       title('y muestra', 200, w(23, 4), { size: 68 }),

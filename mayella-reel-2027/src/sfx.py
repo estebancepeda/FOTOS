@@ -11,7 +11,7 @@ Lee los tiempos reales de la animación (transcript/story_events.json, exportado
   línea           → «zip» que se abre en estéreo
   estrellas       → un punto de cristal por estrella, de izquierda a derecha
   pantallas       → trayectoria del contorno + puntos de interfaz
-  contador / 360° → tics mecánicos que siguen el giro + campanita al fijarse
+  contador / anillo → tics mecánicos que siguen el giro (cada 30°) + campanita al fijarse
   cápsulas        → pop por plataforma
   pulso radar     → ping por ciclo
   escaneo         → barrido suave por ciclo
@@ -319,9 +319,11 @@ def build(ev):
                     tr.add(a + 0.01, blip(1108.7 + 220 * i, 0.06))
             elif ty == "ring":
                 d = e.get("dur", 1.6)
-                for k in range(1, 13):
-                    tr.add(at + d * inv(ease_in_out_cubic, k / 12), tick(0.07, 3000 + 120 * k, p=math.sin(2 * math.pi * k / 12) * 0.7))
-                tr.add(at, trajectory(d, 300, 1300, 0.05, -0.5, 0.5), "anillo 360°")
+                value = e.get("value", 360)
+                steps = int(value // 30)                    # un tic cada 30° recorridos (560° → 18 tics)
+                for k in range(1, steps + 1):
+                    tr.add(at + d * inv(ease_in_out_cubic, k * 30 / value), tick(0.07, 3000 + 70 * k, p=math.sin(2 * math.pi * k / 12) * 0.7))
+                tr.add(at, trajectory(d, 300, 1300, 0.05, -0.5, 0.5), f"anillo {value}°")
                 tr.add(at + d, glass(NOTES[4], 0.07, 1.4))
             elif ty == "pulse":
                 period = e.get("period", 1.6)

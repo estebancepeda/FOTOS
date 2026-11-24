@@ -1,0 +1,8 @@
+node_modules/
+renders/parts/
+renders/*.mov
+preview/frames/
+preview/*.mp4
+preview/still_*.png
+*.log
+assets/video/
